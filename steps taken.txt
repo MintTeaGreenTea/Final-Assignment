@@ -1,0 +1,49 @@
+Column 001:
+Control Number ** NOT ISBN, that would be in 020
+renamed column to reflect contents
+
+Column 008:
+Fixed-Length Data Elements
+renamed column to reflect contents
+need to look more deeply into this column; seems to reference language, country,
+
+Column 245: 
+according to MARC 21, Title Statement; $b is subtitle 
+renamed column to reflect contents, removed metaexpressions using:
+value.replace('^$0$0$a', '')
+used custom text facet to find the ones left with ^$0$3$a, have yet to decide what to do about them, separated into two columns for now
+
+
+Column 260: 
+Publication, Distribution; $a - Place of Publication; $b - name of publisher; $c - Date of publication, distribution 
+renamed column to reflect contents, removed metaexpressions using:
+value.replace('^$ $ $a', '')
+
+Column 35:
+System Control Number
+renamed column to reflect contents
+
+Column 40:
+Cataloging Source; $a - Original cataloging agency; $b - language of cataloging; $e description conventions
+renamed column to reflect contents
+some were blank because the information was in the wrong column; with a text facet for 40 and a text filter for column 35,
+319 matched (exactly the same number that had the info on column 35)
+added to 40 with: if(value==null,'$ $ $bLanguage of cataloging varies$ $ $erda based','new')
+subtracted from 35: value.replace('$ $ $bLanguage of cataloging varies$ $ $erda based', '')
+removed metaexpressions using:
+value.replace('^$ $ $a', ' ')
+split into three columns for each subfield
+
+Column 310:
+Current Publication Frequency; $b - Date of current publication frequency
+renamed column to reflect contents, removed metaexpressions using:
+value.replace('^$ $ $a', '')
+split multi-valued cells by $ $ $b
+cluster and edit using different methods and keying functions, also manual clustering by using text facet (when clustering,
+we chose to keep information in dutch)
+after the manual cluster, we re-joined the multi-valued cells with $ $ $b
+
+ALL OTHER COLUMNS:
+just renamed them to reflect their contents for now
+*** I can't find the 900s
+Take a look at the 5 items that have info on Column 856 (put a blank facet on it and go to the "False" ones), they might be of interest
