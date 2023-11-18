@@ -1,3 +1,5 @@
+Collapsed a lot of the very empty columns (so they are not visible, but they are still present in the document); might want to somehow make this change permanent
+
 Column 001:
 Control Number ** NOT ISBN, that would be in 020
 renamed column to reflect contents
@@ -12,6 +14,7 @@ according to MARC 21, Title Statement; $b is subtitle
 renamed column to reflect contents, removed metaexpressions using:
 value.replace('^$0$0$a', '')
 used custom text facet to find the ones left with ^$0$3$a, have yet to decide what to do about them, separated into two columns for now
+According to MARC 21, these numbers show up because "Title begins with a definite or indefinite article that is disregarded in sorting and filing processes. Any diacritical mark, space or mark of punctuation associated with the article and any space or mark of punctuation preceding the first filing character after the article is included in the count of nonfiling characters. Any diacritic, however, associated with the first filing character is not included in the count of nonfiling characters."
 
 
 Column 260: 
@@ -42,6 +45,7 @@ split multi-valued cells by $ $ $b
 cluster and edit using different methods and keying functions, also manual clustering by using text facet (when clustering,
 we chose to keep information in dutch)
 after the manual cluster, we re-joined the multi-valued cells with $ $ $b
+Reconciled and matched some of the items in this column, but deleted these changes.
 
 ALL OTHER COLUMNS:
 just renamed them to reflect their contents for now
